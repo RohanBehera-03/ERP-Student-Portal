@@ -1,0 +1,411 @@
+# Student Management Information System
+
+## Project Title
+Student Management Information System
+
+## Developed By
+Puspanjali Panigrahi
+
+---
+
+# Project Overview
+
+The Student Management Information System is a full-stack web application developed to manage student information efficiently. The system allows students to register, login, store educational details, and view their information through a personalized dashboard.
+
+The project is designed using modern web technologies and demonstrates frontend development, backend development, database integration, authentication, API communication, and responsive design.
+
+---
+
+# Technologies Used
+
+## Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Bootstrap 5
+
+## Backend
+- Node.js
+- Express.js
+
+## Database
+- MongoDB
+- Mongoose
+
+---
+
+# Features
+
+## Home Page
+- Responsive navigation bar
+- About section
+- Course section
+- Contact form
+- Login button
+- Register button
+
+## Registration Module
+Students can enter:
+
+### Personal Details
+- Name
+- Email
+- Password
+- Date of Birth
+- Gender
+- City
+- Branch
+
+### Educational Details
+
+#### 10th Details
+- School Name
+- Board
+- Marks
+- Total Marks
+- CGPA Calculation
+
+#### 12th Details
+- College Name
+- Board
+- Marks
+- Total Marks
+- CGPA Calculation
+
+#### Graduation Details
+- Degree
+- University
+- Marks
+- Total Marks
+- CGPA Calculation
+
+### Validation Features
+- Strong password validation
+- Confirm password matching
+- Duplicate email checking
+- Empty field validation
+
+---
+
+## Login Module
+
+Registered students can:
+
+- Login using Email and Password
+- Authentication using MongoDB database
+- Redirect to personal dashboard after successful login
+
+---
+
+## Student Dashboard
+
+After login students can view:
+
+### Personal Information
+- Name
+- Email
+- Date of Birth
+- Gender
+- City
+
+### Academic Information
+
+#### 10th Details
+- School Name
+- Board
+- Marks
+- Total Marks
+- CGPA
+
+#### 12th Details
+- College Name
+- Board
+- Marks
+- Total Marks
+- CGPA
+
+#### Graduation Details
+- Degree
+- University
+- Marks
+- Total Marks
+- CGPA
+
+---
+
+# Database Design
+
+MongoDB is used to store student information.
+
+Sample Fields:
+
+```javascript
+{
+    name,
+    email,
+    password,
+    dob,
+    gender,
+    city,
+    branch,
+
+    school10,
+    board10,
+    secured10,
+    total10,
+
+    college12,
+    board12,
+    secured12,
+    total12,
+
+    degree,
+    university,
+    securedGrad,
+    totalGrad
+}
+```
+
+---
+
+# API Endpoints
+
+## Register Student
+
+```http
+POST /submit
+```
+
+Stores student information in MongoDB.
+
+---
+
+## Login Student
+
+```http
+POST /login
+```
+
+Authenticates student credentials.
+
+---
+
+## Get Student Details
+
+```http
+GET /api/student/:id
+```
+
+Returns student information.
+
+---
+
+## Update Education Details
+
+```http
+POST /api/education/:id
+```
+
+Updates academic records.
+
+---
+
+# Internship Task Mapping
+
+## Task 1
+HTML Forms and User Input
+
+Completed using:
+- Registration Form
+- Login Form
+- Contact Form
+
+---
+
+## Task 2
+Form Validation
+
+Completed using:
+- Password validation
+- Confirm password validation
+- Email uniqueness check
+
+---
+
+## Task 3
+Responsive Web Design
+
+Completed using:
+- CSS
+- Bootstrap
+- Mobile responsive layout
+
+---
+
+## Task 4
+JavaScript DOM Manipulation
+
+Completed using:
+- CGPA calculation
+- Form validation
+- Dynamic dashboard updates
+
+---
+
+## Task 5
+API Communication
+
+Completed using:
+
+```javascript
+fetch("/submit")
+fetch("/login")
+fetch("/api/student/:id")
+```
+
+---
+
+## Task 6
+Database Integration
+
+Completed using:
+- MongoDB
+- Mongoose
+- Express.js
+
+---
+
+# Software Required
+
+Install the following software:
+
+## Node.js
+Download:
+https://nodejs.org
+
+## MongoDB Community Server
+Download:
+https://www.mongodb.com/try/download/community
+
+## Visual Studio Code
+Download:
+https://code.visualstudio.com
+
+---
+
+# Required Packages
+
+Install packages using:
+
+```bash
+npm install express mongoose
+```
+
+---
+
+# Project Structure
+
+```text
+StudentManagementSystem
+│
+├── models
+│   └── Student.js
+│
+├── public
+│   ├── dashboard.html
+│   ├── register.html
+│   ├── login.html
+│   ├── studentData.html
+│   └── style.css
+│
+├── server.js
+│
+├── package.json
+│
+└── README.md
+```
+
+---
+
+# How To Run The Project
+
+## Step 1
+
+Start MongoDB.
+
+---
+
+## Step 2
+
+Open terminal.
+
+---
+
+## Step 3
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+---
+
+## Step 4
+
+Run server.
+
+```bash
+node server.js
+```
+
+---
+
+## Step 5
+
+Open browser.
+
+```text
+http://localhost:3000
+```
+
+---
+
+# How To Test The Project
+
+### New Student
+
+1. Open Home Page
+2. Click Register
+3. Fill Personal Details
+4. Fill Educational Details
+5. Submit Form
+6. Login using registered credentials
+7. View Dashboard
+
+### Existing Student
+
+1. Open Home Page
+2. Click Login
+3. Enter Email and Password
+4. View Dashboard
+
+---
+
+# Future Enhancements
+
+- Attendance Management
+- Student Profile Photo Upload
+- Course Enrollment
+- Admin Dashboard
+- Google OAuth Login
+- Email Verification
+- Forgot Password
+- Weather API Integration
+- News API Integration
+
+---
+
+# Conclusion
+
+The Student Management Information System successfully demonstrates frontend development, backend development, database integration, authentication, API communication, and responsive web design. The project provides a complete solution for managing student information through a secure and user-friendly interface.

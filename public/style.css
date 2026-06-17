@@ -1,0 +1,88 @@
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* SMOOTH SCROLL */
+html{
+    scroll-behavior:smooth;
+}
+
+/* BODY */
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(135deg,#0e2b44,#135a5e);
+    color:white;
+    padding:120px 20px;
+    text-align:center;
+    animation:fadeIn 1.5s ease-in-out;
+}
+
+/* COURSE CARDS */
+.course-card{
+    transition:0.3s ease;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    border:none;
+    border-radius:12px;
+    background:white;
+}
+
+.course-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* BUTTON STYLE */
+.btn{
+    border-radius:25px;
+    padding:10px 20px;
+}
+
+/* CONTACT SECTION */
+#contact{
+    padding:60px 0;
+}
+
+/* FOOTER */
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:15px;
+    font-size:14px;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+    .hero{
+        padding:90px 15px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .course-card{
+        margin-bottom:15px;
+    }
+}

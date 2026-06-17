@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Registration</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1f1c2c,#928dab);
+}
+
+.container{
+    width:95%;
+    max-width:1000px;
+    height:90vh;
+    display:flex;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+.left,.right{
+    width:50%;
+    padding:25px;
+    overflow-y:auto;
+}
+
+h2{
+    text-align:center;
+    color:white;
+    margin-bottom:15px;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:none;
+    outline:none;
+    border-radius:8px;
+    background:rgba(255,255,255,0.85);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.section{
+    background:rgba(255,255,255,0.15);
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:12px;
+    color:white;
+}
+
+.section-title{
+    font-weight:bold;
+    margin-bottom:8px;
+    border-left:4px solid #fff;
+    padding-left:8px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(to right,#00c6ff,#0072ff);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LEFT SIDE -->
+<div class="left">
+
+<h2>Personal Details</h2>
+
+<input name="name" placeholder="Full Name">
+<input name="email" placeholder="Email">
+
+<div class="grid">
+
+    <div>
+        <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            onkeyup="validatePassword()"
+        >
+
+        <div id="passwordError"
+             style="color:#ff4d4d;font-size:12px;margin-top:5px;">
+        </div>
+    </div>
+
+    <div>
+        <input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            onkeyup="checkPasswordMatch()"
+        >
+
+        <div id="confirmError"
+             style="color:#ff4d4d;font-size:12px;margin-top:5px;">
+        </div>
+    </div>
+
+</div>
+
+<div class="grid">
+    <input name="dob" type="date">
+
+    <select name="gender">
+        <option value="">Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+    </select>
+</div>
+
+<div class="grid">
+    <input name="city" placeholder="City">
+    <input name="branch" placeholder="Branch">
+</div>
+
+</div>
+
+<!-- RIGHT SIDE -->
+<div class="right">
+
+<h2>Education Details</h2>
+
+<!-- 10th -->
+<div class="section">
+    <div class="section-title">10th Details</div>
+
+    <input name="school10" placeholder="School Name">
+    <input name="board10" placeholder="Board">
+
+    <div class="grid">
+        <input name="secured10" id="t10" placeholder="Marks" oninput="calc('t10')">
+        <input name="total10" id="t10t" placeholder="Total" oninput="calc('t10')">
+    </div>
+
+    <input id="p10" readonly placeholder="CGPA">
+</div>
+
+<!-- 12th -->
+<div class="section">
+    <div class="section-title">12th Details</div>
+
+    <input name="college12" placeholder="College Name">
+    <input name="board12" placeholder="Board">
+
+    <div class="grid">
+        <input name="secured12" id="t12" placeholder="Marks" oninput="calc('t12')">
+        <input name="total12" id="t12t" placeholder="Total" oninput="calc('t12')">
+    </div>
+
+    <input id="p12" readonly placeholder="CGPA">
+</div>
+
+<!-- Graduation -->
+<div class="section">
+    <div class="section-title">Graduation</div>
+
+    <input name="degree" placeholder="Degree">
+    <input name="university" placeholder="University">
+
+    <div class="grid">
+        <input name="securedGrad" id="g" placeholder="Marks" oninput="calc('g')">
+        <input name="totalGrad" id="gt" placeholder="Total" oninput="calc('g')">
+    </div>
+
+    <input id="pg" readonly placeholder="CGPA">
+</div>
+
+<button onclick="submitForm()">Register</button>
+
+<div style="text-align:center;color:white;margin-top:10px;">
+    Already registered?
+    <a href="login.html" style="color:#00c6ff;">Login here</a>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* CALCULATION */
+function calc(x){
+
+    let m = Number(document.getElementById(x).value);
+    let t = Number(document.getElementById(x+"t").value);
+
+    if(m && t && t > 0){
+
+        let cgpa = (m / t) * 10;
+
+        if(x==="t10") document.getElementById("p10").value = cgpa.toFixed(2);
+        if(x==="t12") document.getElementById("p12").value = cgpa.toFixed(2);
+        if(x==="g") document.getElementById("pg").value = cgpa.toFixed(2);
+    }
+}
+
+/* SUBMIT */
+function submitForm(){
+
+    let data = {
+        name: document.querySelector('[name="name"]').value,
+        email: document.querySelector('[name="email"]').value,
+        password: document.querySelector('[name="password"]').value,
+        dob: document.querySelector('[name="dob"]').value,
+        gender: document.querySelector('[name="gender"]').value,
+        city: document.querySelector('[name="city"]').value,
+        branch: document.querySelector('[name="branch"]').value,
+
+        school10: document.querySelector('[name="school10"]').value,
+        board10: document.querySelector('[name="board10"]').value,
+        secured10: document.querySelector('[name="secured10"]').value,
+        total10: document.querySelector('[name="total10"]').value,
+
+        college12: document.querySelector('[name="college12"]').value,
+        board12: document.querySelector('[name="board12"]').value,
+        secured12: document.querySelector('[name="secured12"]').value,
+        total12: document.querySelector('[name="total12"]').value,
+
+        degree: document.querySelector('[name="degree"]').value,
+        university: document.querySelector('[name="university"]').value,
+        securedGrad: document.querySelector('[name="securedGrad"]').value,
+        totalGrad: document.querySelector('[name="totalGrad"]').value
+    };
+    function validatePassword(){
+
+    let password =
+    document.getElementById("password").value;
+
+    let error =
+    document.getElementById("passwordError");
+
+    let messages = [];
+
+    if(password.length < 8){
+        messages.push("Minimum 8 characters");
+    }
+
+    if(!/[A-Z]/.test(password)){
+        messages.push("Must contain uppercase letter");
+    }
+
+    if(!/[0-9]/.test(password)){
+        messages.push("Must contain number");
+    }
+
+    if(!/[@$!%*?&]/.test(password)){
+        messages.push("Must contain special character");
+    }
+
+    if(messages.length > 0){
+        error.innerHTML = messages.join("<br>");
+        return false;
+    }
+
+    error.innerHTML =
+    "<span style='color:lightgreen'>✓ Strong Password</span>";
+
+    return true;
+}
+
+function checkPasswordMatch(){
+
+    let password =
+    document.getElementById("password").value;
+
+    let confirm =
+    document.getElementById("confirmPassword").value;
+
+    let error =
+    document.getElementById("confirmError");
+
+    if(confirm === ""){
+        error.innerHTML = "";
+        return false;
+    }
+
+    if(password !== confirm){
+        error.innerHTML = "Passwords do not match";
+        return false;
+    }
+
+    error.innerHTML =
+    "<span style='color:lightgreen'>✓ Password Matched</span>";
+
+    return true;
+}
+if(!validatePassword()){
+    alert("Password requirements not met");
+    return;
+}
+
+if(!checkPasswordMatch()){
+    alert("Passwords do not match");
+    return;
+}
+    
+    fetch("/submit", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+})
+.then(async (res) => {
+
+    // safe check
+    const text = await res.text();
+
+    let data;
+    try {
+        data = JSON.parse(text);
+    } catch (err) {
+        console.log("NOT JSON RESPONSE:", text);
+        alert("Server error or invalid response");
+        return;
+    }
+
+    console.log("SERVER RESPONSE:", data);
+
+    alert(data.message);
+
+    if (data.success && data.redirect) {
+        window.location.href = data.redirect;
+    } else {
+        console.log("Missing redirect:", data);
+        alert("Redirect missing!");
+    }
+
+})
+.catch(err => {
+    console.log("FETCH ERROR:", err);
+    alert("Network error");
+});
+}
+
+</script>
+
+</body>
+</html>

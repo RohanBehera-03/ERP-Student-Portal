@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard</title>
+
+<style>
+body{
+    font-family:Segoe UI, sans-serif;
+    margin:0;
+    background:#f4f6f9;
+}
+
+/* HEADER */
+header{
+    background:#1f2a40;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:30px auto;
+}
+
+/* CARD */
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* TITLE */
+h2{
+    margin-bottom:10px;
+    color:#333;
+    border-left:4px solid #007bff;
+    padding-left:10px;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+p{
+    margin:6px 0;
+}
+
+/* BADGE */
+.badge{
+    padding:5px 10px;
+    border-radius:5px;
+    color:#000000;
+    font-size:15px;
+}
+
+.green{background:green;}
+.red{background:red;}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Student Dashboard</h1>
+</header>
+
+<div class="container">
+
+    <!-- BASIC INFO -->
+    <div class="card">
+        <h2>Personal Details</h2>
+        <p><b>Name:</b> <span id="name"></span></p>
+        <p><b>Email:</b> <span id="email"></span></p>
+        <p><b>DOB:</b> <span id="dob"></span></p>
+        <p><b>Gender:</b> <span id="gender"></span></p>
+        <p><b>City:</b> <span id="city"></span></p>
+    </div>
+
+    <!-- 10TH -->
+    <div class="card">
+        <h2>10th Details</h2>
+        <p><b>School:</b> <span id="school10"></span></p>
+        <p><b>Board:</b> <span id="board10"></span></p>
+        <p><b>Marks:</b> <span id="sec10"></span></p>
+        <p><b>Total:</b> <span id="tot10"></span></p>
+        <p><b>CGPA:</b> 
+            <span id="per10" class="badge"></span>
+        </p>
+    </div>
+
+    <!-- 12TH -->
+    <div class="card">
+        <h2>12th Details</h2>
+        <p><b>College:</b> <span id="college12"></span></p>
+        <p><b>Board:</b> <span id="board12"></span></p>
+        <p><b>Marks:</b> <span id="sec12"></span></p>
+        <p><b>Total:</b> <span id="tot12"></span></p>
+        <p><b>CGPA:</b> 
+            <span id="per12" class="badge"></span>
+        </p>
+    </div>
+
+    <!-- GRADUATION -->
+    <div class="card">
+        <h2>Graduation</h2>
+        <p><b>Degree:</b> <span id="degree"></span></p>
+        <p><b>University:</b> <span id="university"></span></p>
+        <p><b>Marks:</b> <span id="secG"></span></p>
+        <p><b>Total:</b> <span id="totG"></span></p>
+        <p><b>CGPA:</b> 
+            <span id="perG" class="badge"></span>
+        </p>
+    </div>
+
+</div>
+
+<script>
+   window.onload = async function () {
+
+    const id = new URLSearchParams(window.location.search).get("id");
+
+    if (!id) {
+        alert("Invalid access - No ID found");
+        return;
+    }
+
+    try {
+        const res = await fetch(`/api/student/${id}`);
+
+        if (!res.ok) {
+            throw new Error("Failed to fetch student data");
+        }
+
+        const data = await res.json();
+
+        console.log("STUDENT DATA:", data);
+
+        /* BASIC INFO */
+        document.getElementById("name").innerText = data.name || "-";
+        document.getElementById("email").innerText = data.email || "-";
+        document.getElementById("dob").innerText = data.dob || "-";
+        document.getElementById("gender").innerText = data.gender || "-";
+        document.getElementById("city").innerText = data.city || "-";
+
+        /* 10th */
+        document.getElementById("school10").innerText = data.school10 || "-";
+        document.getElementById("board10").innerText = data.board10 || "-";
+        document.getElementById("sec10").innerText = data.secured10 ?? 0;
+        document.getElementById("tot10").innerText = data.total10 ?? 0;
+
+        document.getElementById("per10").innerText = calcCGPA(
+            data.secured10,
+            data.total10
+        );
+
+        /* 12th */
+        document.getElementById("college12").innerText = data.college12 || "-";
+        document.getElementById("board12").innerText = data.board12 || "-";
+        document.getElementById("sec12").innerText = data.secured12 ?? 0;
+        document.getElementById("tot12").innerText = data.total12 ?? 0;
+
+        document.getElementById("per12").innerText = calcCGPA(
+            data.secured12,
+            data.total12
+        );
+
+        /* GRADUATION */
+        document.getElementById("degree").innerText = data.degree || "-";
+        document.getElementById("university").innerText = data.university || "-";
+        document.getElementById("secG").innerText = data.securedGrad ?? 0;
+        document.getElementById("totG").innerText = data.totalGrad ?? 0;
+
+        document.getElementById("perG").innerText = calcCGPA(
+            data.securedGrad,
+            data.totalGrad
+        );
+
+    } catch (err) {
+        console.log("ERROR:", err);
+        alert("Error loading data");
+    }
+};
+
+
+/* CGPA CALCULATION (FINAL SAFE VERSION) */
+function calcCGPA(sec, total) {
+    sec = Number(sec);
+    total = Number(total);
+
+    if (isNaN(sec) || isNaN(total) || total <= 0) {
+        return "0.00";
+    }
+
+    return ((sec / total) * 10).toFixed(2);
+}
+</script>
+
+</body>
+</html>
